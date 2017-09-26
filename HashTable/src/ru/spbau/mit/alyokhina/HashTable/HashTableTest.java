@@ -112,7 +112,7 @@ public class HashTableTest {
 
 
     @Test
-    public void testGetCapacity() throws Exception {
+    public void getCapacity() throws Exception {
         HashTable hashTable = new HashTable();
         for (int i = 0; i < 35; i++) {
             hashTable.put(Integer.toString(i), Integer.toString(i + 1));
@@ -120,37 +120,4 @@ public class HashTableTest {
         assertEquals(64, hashTable.getCapacity());
     }
 
-    @Test
-    public void testRebuild() throws Exception {
-        HashTable hashTable = new HashTable();
-        hashTable.put("1", "one");
-        hashTable.put("2", "two");
-        hashTable.put("3", "three");
-        hashTable.put("4", "four");
-        hashTable.put("5", "four");
-        assertEquals(8, hashTable.getCapacity());
-        assertEquals(true, hashTable.contains("1"));
-        assertEquals(true, hashTable.contains("2"));
-        assertEquals(true, hashTable.contains("3"));
-        assertEquals(true, hashTable.contains("4"));
-        assertEquals(true, hashTable.contains("5"));
-    }
-
-    @Test
-    public void testCollisionSolution() throws Exception {
-        HashTable hashTable = new HashTable();
-        hashTable.put("Da", "one");
-        hashTable.put("EB", "two");
-        assertEquals(true, hashTable.contains("Da"));
-        assertEquals(true, hashTable.contains("EB"));
-    }
-
-    @Test
-    public void testCollisionSolutionWithHelpGet() throws Exception {
-        HashTable hashTable = new HashTable();
-        hashTable.put("Da", "one");
-        hashTable.put("EB", "two");
-        assertEquals("one", hashTable.get("Da"));
-        assertEquals("two", hashTable.get("EB"));
-    }
 }

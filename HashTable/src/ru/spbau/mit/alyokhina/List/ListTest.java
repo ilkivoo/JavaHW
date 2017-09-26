@@ -28,15 +28,9 @@ public class ListTest {
     }
 
     @Test
-    public void testPopNullKey() throws Exception {
+    public void testPopNullNode() throws Exception {
         List l = new List();
-        try {
-            l.pop(null);
-            assertEquals("not fount exeption", "" );
-        }
-        catch (RuntimeException e) {
-            System.out.println("found the correct exception");
-        }
+        l.pop(null);
     }
 
     @Test
@@ -45,18 +39,8 @@ public class ListTest {
         l.pushFront("1", "one");
         l.pushFront("2", "two");
         l.pushFront("3", "three");
-        l.pop("2");
+        l.pop(l.getNode("2"));
         assertEquals(null, l.getValue("2"));
-    }
-
-    @Test
-    public void testPopWithHelpSize() throws Exception {
-        List l = new List();
-        l.pushFront("1", "one");
-        l.pushFront("2", "two");
-        l.pushFront("3", "three");
-        l.pop("2");
-        assertEquals(2, l.getSize());
     }
 
     @Test
@@ -65,7 +49,7 @@ public class ListTest {
         l.pushFront("1", "one");
         l.pushFront("2", "two");
         l.pushFront("3", "three");
-        l.pop(l.getHeadKey());
+        l.pop(l.getHead());
         assertEquals("two", l.getHeadValue());
     }
 
@@ -80,20 +64,29 @@ public class ListTest {
     }
 
     @Test
+    public void testGetNode() throws Exception {
+        List l = new List();
+        l.pushFront("1", "one");
+        l.pushFront("2", "two");
+        l.pushFront("3", "three");
+        assertEquals(l.getHead(), l.getNode("3"));
+    }
+
+    @Test
     public void testClear() throws Exception {
         List l = new List();
         l.pushFront("1", "one");
         l.pushFront("2", "two");
         l.pushFront("3", "three");
         l.clear();
-        assertEquals(null, l.getHeadKey());
+        assertEquals(null, l.getHead());
     }
 
     @Test
     public void TestClearEmptyList() throws Exception {
         List l = new List();
         l.clear();
-        assertEquals(null, l.getHeadKey());
+        assertEquals(null, l.getHead());
     }
 
     @Test
@@ -127,21 +120,18 @@ public class ListTest {
     }
 
     @Test
-    public void testGetSize() throws Exception {
+    public void getHead() throws Exception {
         List l = new List();
         l.pushFront("1", "one");
         l.pushFront("2", "two");
         l.pushFront("3", "three");
-        assertEquals(3, l.getSize());
+        l.pop(l.getHead());
+        assertEquals("two", l.getHeadValue());
     }
 
     @Test
-    public void testGetSizeAfterClear() throws Exception {
+    public void getHeadEmptyList() throws Exception {
         List l = new List();
-        l.pushFront("1", "one");
-        l.pushFront("2", "two");
-        l.pushFront("3", "three");
-        l.clear();
-        assertEquals(0, l.getSize());
+        assertEquals(null, l.getHead());
     }
 }
