@@ -5,10 +5,8 @@ package ru.spbau.mit.alyokhina.List;
  */
 public class List {
     private Node head = null;
-
-    /**
-     * элементы двусвязного списка
-     */
+    private int size = 0;
+    /**  элементы двусвязного списка */
     private class Node {
         private String value;
         private String key;
@@ -24,6 +22,21 @@ public class List {
     }
 
     /**
+     * @param str по этой строке мы надем node
+     * @return node, key которой = str
+     */
+    private Node getNode(String str) {
+        Node node = head;
+        while (node != null) {
+            if (node.key.equals(str)) {
+                return node;
+            }
+            node = node.next;
+        }
+        return null;
+    }
+
+    /**
      * Создает Node со значениями key, value
      * Добавляет Node  в начало списка
      */
@@ -31,19 +44,19 @@ public class List {
         if (head == null) {
             head = new Node(key, value, null, null);
         } else {
-            Node newNode = new Node(key, value, null, null);
-            newNode.next = head;
+            Node newNode = new Node(key, value, head, null);
             head.prev = newNode;
             head = newNode;
         }
+        size++;
     }
 
-    /**
-     * @param node, которая будет удаленa из списка
-     */
-    public void pop(Node node) {
-        if (node == null)
-            return;
+    /** @param key, ключ, по которому будет удалена строка */
+    public void pop(String key) {
+        Node node = getNode(key);
+        if (node == null) {
+            throw new RuntimeException("pop Node with Key = NULL");
+        }
         if (node.prev != null) {
             (node.prev).next = node.next;
         } else {
@@ -52,6 +65,7 @@ public class List {
         if (node.next != null) {
             (node.next).prev = node.prev;
         }
+        size--;
     }
 
     /**
@@ -69,27 +83,10 @@ public class List {
         return null;
     }
 
-    /**
-     * @param str по этой строке мы надем node
-     * @return node, key которой = str
-     */
-    public Node getNode(String str) {
-        Node node = head;
-        while (node != null) {
-            if (node.key.equals(str)) {
-                return node;
-            }
-            node = node.next;
-        }
-        return null;
-    }
-
-
-    /**
-     * Очищает список
-     */
+    /** Очищает список */
     public void clear() {
         head = null;
+        size = 0;
     }
 
     /**
@@ -103,9 +100,7 @@ public class List {
         }
     }
 
-    /**
-     * @return значение у головы списка
-     */
+    /** @return значение у головы списка */
     public String getHeadValue() {
         if (head != null) {
             return head.value;
@@ -114,10 +109,7 @@ public class List {
         }
     }
 
-    /**
-     * @return node головы списка
-     */
-    public Node getHead() {
-        return head;
+    public int getSize() {
+        return size;
     }
 }
