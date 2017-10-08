@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+
+/** Test for hash-table */
 public class HashTableTest {
 
     @Test
@@ -20,7 +22,6 @@ public class HashTableTest {
         hashTable.put("4", "four");
         hashTable.put("3", "five");
         assertEquals(4, hashTable.size());
-
     }
 
     @Test
@@ -32,9 +33,7 @@ public class HashTableTest {
         hashTable.put("4", "four");
         hashTable.remove("3");
         assertEquals(3, hashTable.size());
-
     }
-
 
     @Test
     public void testContainsIfTrue() throws Exception {
@@ -59,7 +58,6 @@ public class HashTableTest {
         assertEquals(false, hashTable.contains("1"));
     }
 
-
     @Test
     public void testGet() throws Exception {
         HashTable hashTable = new HashTable();
@@ -72,6 +70,19 @@ public class HashTableTest {
         HashTable hashTable = new HashTable();
         hashTable.put("1", "one");
         assertEquals("one", hashTable.get("1"));
+    }
+
+    @Test
+    public void testPutReturnValueIsNull() throws Exception {
+        HashTable hashTable = new HashTable();
+        assertEquals(null, hashTable.put("1", "one"));
+    }
+
+    @Test
+    public void testPutReturnValuesIsNotNull() throws Exception {
+        HashTable hashTable = new HashTable();
+        hashTable.put("1", "one");
+        assertEquals("one", hashTable.put("1", "two"));
     }
 
     @Test
@@ -109,7 +120,6 @@ public class HashTableTest {
         hashTable.clear();
         assertEquals(0, hashTable.size());
     }
-
 
     @Test
     public void testGetCapacity() throws Exception {
