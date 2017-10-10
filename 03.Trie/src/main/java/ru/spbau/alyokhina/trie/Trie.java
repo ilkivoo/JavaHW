@@ -4,97 +4,95 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-/** бор. Структура данных для хранения набора строк, представляющая из себя подвешенное дерево с символами на рёбрах */
-public class Trie implements Serializable{
+/** Trie. A data structure that stores a set of strings representing a tree with symbols on the edges */
+public class Trie implements Serializable, IOByte {
 
-    /** класс для вершины. В нем хранится map ( ребро по которому попадем в соседнюю вершину, сама вершина) */
-    private class Node implements Serializable{
+    /** Class for vertex. It stores map (symbol on edge, adjacent vertex) and number of strings that ended in an edge leading to this vertex */
+    private class Node implements Serializable {
         private Map<Character, Node> childrenInTrie = new HashMap<Character, Node>();
-        private boolean endOfWord = false;
-        private int numWordWithPrefix = 0;
+        private int numberOfWordsEndingInVertex = 0;
     }
 
-    /**корень дерева*/
+    /** Root tree*/
     private Node root = new Node();
 
-    /**количесвтво строк в боре*/
+    /** Size of trie */
     private int size = 0;
 
     /**
-     * проверка на наличие строки в боре.
-     * @param element строка, кторую мы хотим проверить
-     * время O(|element|)
-     * @return true, если строка найдена, иначе false
+     * Checks for a row in the trie
+     * @param element string we want to check
+     * Time O(|element|)
+     * @return true, if string fount in trie, else false
      */
     public boolean contains(String element) {
         Node vertex = root;
         for (char c : element.toCharArray()) {
-            if (vertex.childrenInTrie.containsKey(c) && vertex.numWordWithPrefix > 0) {
+            if (vertex.childrenInTrie.containsKey(c) && (vertex.childrenInTrie.size() + vertex.numberOfWordsEndingInVertex > 0)) {
                 vertex = vertex.childrenInTrie.get(c);
             }
             else {
                 return false;
             }
         }
-        return vertex.endOfWord;
+        return (vertex.numberOfWordsEndingInVertex > 0);
     }
 
     /**
-     * добавление строки в бор.
-     * @param element строка, которую мы хотим добавить
-     * время O(|element|)
-     * @return true, если этой строки раньше не было, иначе false
+     * Add word in trie.
+     * @param element string we want to add
+     * Time O(|element|)
+     * @return true, if this word didn't exist before, else false
      */
     public boolean add(String element) {
         if (contains(element)) {
             return false;
         }
-        size ++;
+        size++;
         Node vertex = root;
         for (char c : element.toCharArray()) {
             if (!vertex.childrenInTrie.containsKey(c)) {
                 vertex.childrenInTrie.put(c, new Node());
             }
-            vertex.numWordWithPrefix ++;
             vertex = vertex.childrenInTrie.get(c);
         }
-        vertex.numWordWithPrefix ++;
-        vertex.endOfWord = true;
-        return  true;
+        vertex.numberOfWordsEndingInVertex++;
+        return true;
     }
 
-
-    /**удаление строки из бора.
-     * @param element строка, которую мы хотим удалить
-     * время O(|element|)
-     * @return false, если такой строки в боре нет, false - иначе
+    /**
+     * Delete word from trie.
+     * @param element string we want to delete
+     * Time O(|element|)
+     * @return false, if this word doesn't exist, else false
      */
     public boolean remove(String element) {
         if (!contains(element)) {
             return false;
         }
-        size --;
+        size--;
         Node vertex = root;
         for (char c : element.toCharArray()) {
-            vertex.numWordWithPrefix --;
-            vertex = vertex.childrenInTrie.get(c);
+            Node vertexTmp = vertex.childrenInTrie.get(c);
+            vertex.childrenInTrie.remove(c);
+            vertex = vertexTmp;
         }
-        vertex.numWordWithPrefix --;
-        vertex.endOfWord = false;
+        vertex.numberOfWordsEndingInVertex--;
         return true;
     }
 
-    /**количество элементов в боре
-     * время О(1)
+    /**
+     * Number of words in trie
+     * Time О(1)
      */
     public int size() {
         return size;
     }
 
-
-    /** количество строк в боре с данным префиксом
-     * @param prefix cтрока, для которой найдется количество строк в боре с префиксом = prefix
-     * время O(|element|)
+    /**
+     * Number of words start with this prefix
+     * @param prefix on this prefix will be found the number of words
+     * Time O(|element|)
      */
     public int howManyStartsWithPrefix(String prefix) {
         if (!contains(prefix)) {
@@ -104,19 +102,21 @@ public class Trie implements Serializable{
         for (char c : prefix.toCharArray()) {
             vertex = vertex.childrenInTrie.get(c);
         }
-        return vertex.numWordWithPrefix;
+        return vertex.childrenInTrie.size() + vertex.numberOfWordsEndingInVertex;
     }
 
-    /**сериализует  бор в введенный поток
-     * @param out поток для вывода
+    /**
+     * Serializes the trie into a given stream
+     * @param out stream for write
      */
     public void serialize(OutputStream out) throws IOException {
         ObjectOutputStream objOutStream = new ObjectOutputStream(out);
         objOutStream.writeObject(this);
     }
 
-    /**десериализует бор из данного потока. И сохранит в текущий
-     * @param in поток для чтения
+    /**
+     * Deserializes from a given stream and save them in this trie
+     * @param in stream for read
      */
     public void deserialize(InputStream in) throws IOException, ClassNotFoundException {
         ObjectInputStream objInStream = new ObjectInputStream(new BufferedInputStream(in));

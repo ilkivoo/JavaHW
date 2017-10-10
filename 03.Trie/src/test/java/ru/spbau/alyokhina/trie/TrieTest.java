@@ -8,16 +8,17 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-/**тест для бора*/
+/** Test for trie */
 public class TrieTest {
-    /**проверка существования элемента в пустом файле*/
+
+    /** Checking the existence of an element in an empty file */
     @Test
     public void containsEmptyTree() {
         Trie trie = new Trie();
         assertEquals(false, trie.contains("one"));
     }
 
-    /**проверка существования элемента, если он действительно там лежит*/
+    /** Checking the existence of an element if it is really there */
     @Test
     public void containsIfTrue() {
         Trie trie = new Trie();
@@ -25,7 +26,7 @@ public class TrieTest {
         assertEquals(true, trie.contains("one"));
     }
 
-    /**проверка существования элемента, если его нет в боре*/
+    /** Verification of the existence of an element if it does not exist in the trie */
     @Test
     public void containsIfFalse() {
         Trie trie = new Trie();
@@ -33,7 +34,18 @@ public class TrieTest {
         assertEquals(false, trie.contains("two"));
     }
 
-    /**добавление элемента в бор. Проверяем что добавили элемент с помощью contains */
+    /** Checking the situation when one string is the beginning of another string */
+    @Test
+    public void containsIfVertexIsEndForOneWord() {
+        Trie trie = new Trie();
+        trie.add("one");
+        trie.add("onebr");
+        assertEquals(true, trie.contains("one"));
+        assertEquals(true, trie.contains("onebr"));
+    }
+
+
+    /** Adding an element to the trie. We check that the element was added using contains */
     @Test
     public void testAddWithHelpContains() {
         Trie trie = new Trie();
@@ -41,14 +53,14 @@ public class TrieTest {
         assertEquals(true, trie.contains("one"));
     }
 
-    /**добавление элемента в бор. А этот элемент уже в нем содержится*/
+    /** Adding an element to the boron. And this element already contains it */
     @Test
     public void testAddReturnValuesIsTrue() {
         Trie trie = new Trie();
         assertEquals(true, trie.add("one"));
     }
 
-    /**добавление нового элемента в бор*/
+    /** Adding a new element to the trie */
     @Test
     public void testAddReturnValuesIsFalse() {
         Trie trie = new Trie();
@@ -56,7 +68,7 @@ public class TrieTest {
         assertEquals(false, trie.add("one"));
     }
 
-    /**удаление существующего в боре элемента */
+    /** Removing an existing element in the trie */
     @Test
     public void testRemoveReturnValueIsTrue() {
         Trie trie = new Trie();
@@ -66,7 +78,7 @@ public class TrieTest {
         assertEquals(true, trie.remove("two"));
     }
 
-    /**удаление несуществующего в боре элемента */
+    /** Removal of an element that does not exist in the trie */
     @Test
     public void testRemoveReturnValueIsFalse() {
         Trie trie = new Trie();
@@ -76,14 +88,14 @@ public class TrieTest {
         assertEquals(false, trie.remove("four"));
     }
 
-    /**удаление из пустого списка */
+    /** Deleting from an empty trie */
     @Test
     public void testRemoveFromEmptyTree() {
         Trie trie = new Trie();
         assertEquals(false, trie.remove("four"));
     }
 
-    /** удаляем из бора и проверяем, что этого элемента нет с помощью contains*/
+    /** Remove from the trie and check that this item is not present with contains */
     @Test
     public void testRemoveWithHelpContains() {
         Trie trie = new Trie();
@@ -94,14 +106,14 @@ public class TrieTest {
         assertEquals(false, trie.contains("two"));
     }
 
-    /**проверяем количество элементов в пустом боре */
+    /** Check the number of elements in an empty trie */
     @Test
     public void testSizeEmptyTree() {
         Trie trie = new Trie();
         assertEquals(0, trie.size());
     }
 
-    /** проверяем количество элементов в боре */
+    /** Check the number of elements in the trie */
     @Test
     public void testSize() {
         Trie trie = new Trie();
@@ -111,7 +123,8 @@ public class TrieTest {
         assertEquals(3, trie.size());
     }
 
-    /** проверяем размер после удаления */
+
+    /** Check the number of elements in the trie after remove */
     @Test
     public void testSizeAfterRemove() {
         Trie trie = new Trie();
@@ -122,15 +135,14 @@ public class TrieTest {
         assertEquals(2, trie.size());
     }
 
-
-    /** проверка количества строк с суффиксом у пустого бора */
+    /** Checking the number of rows with a suffix for empty trie */
     @Test
     public void testHowManyStartsWithPrefixEmptyTrie() {
         Trie trie = new Trie();
         assertEquals(0, trie.howManyStartsWithPrefix("one"));
     }
 
-    /** проверяем количество строк начинающихся на one */
+    /** check the number of string starting with one*/
     @Test
     public void testHowManyStartsWithPrefix() {
         Trie trie = new Trie();
@@ -142,7 +154,7 @@ public class TrieTest {
         assertEquals(3, trie.howManyStartsWithPrefix("one"));
     }
 
-    /** сериализуем и десериализуем. Проверяем, что получилось одно и тоже */
+    /** Serialize and deserialize. We check that it turned out the same thing */
     @Test
     public  void  testSerializeAndDeserialize() throws IOException, ClassNotFoundException {
         Trie trie = new Trie();
