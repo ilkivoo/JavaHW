@@ -35,8 +35,9 @@ public class UnzipFilesByPatternTest {
     @Test
     public void testExtractFilesByPatternIfDirictoryIsEmpty() throws Exception {
         UnzipFilesByPattern dir = new UnzipFilesByPattern();
-        dir.extractFilesByPattern("./src/test/resources/forTest2", "^12.*");
         File file = new File("./src/test/resources/forTest2");
+        file.mkdir();
+        dir.extractFilesByPattern("./src/test/resources/forTest2", "^12.*");
         assertEquals(0, file.listFiles().length);
     }
 
