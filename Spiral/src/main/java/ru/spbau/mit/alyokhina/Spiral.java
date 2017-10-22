@@ -40,7 +40,7 @@ public class Spiral {
     }
     /** Вывод по спирали. Из центра идем влево, а дальше по часовой стрелке (с учетом транспонированноти)*/
     public void printSpiral() {
-        System.out.println(matrix[matrix.length/2][matrix.length/2]);
+        System.out.println(matrix[matrix.length / 2][matrix.length / 2]);
         int i = matrix.length / 2 - 1;
         int j = matrix.length / 2;
         for (int lengthSpiral  = 2; lengthSpiral < matrix.length; lengthSpiral += 2) {
