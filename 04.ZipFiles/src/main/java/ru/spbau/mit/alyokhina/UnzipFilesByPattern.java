@@ -1,21 +1,22 @@
 package ru.spbau.mit.alyokhina;
 
+import com.sun.istack.internal.NotNull;
+
 import java.io.*;
 import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
+/** Unzip files of all archives in the directory by the regular expression*/
 public class UnzipFilesByPattern {
    /** Regular expression on which we want to find files*/
    private String regex;
-
     /**
      * Find zip-archive
      * @param folder directory in which the search will be
      */
-   private void findArchives(File folder) {
+   private void findArchives(@NotNull File folder) {
         File[] folderEntries = folder.listFiles();
         for (File entry : folderEntries) {
             if (entry.isDirectory()) {
@@ -34,7 +35,7 @@ public class UnzipFilesByPattern {
      * @param path absolute path
      * @return name file
      */
-   private String getShortName(String path) {
+   private String getShortName(@NotNull String path) {
        String shortName = "";
        int i = path.length() - 1;
        while (i >= 0 && path.charAt(i) != '/') {
@@ -48,7 +49,7 @@ public class UnzipFilesByPattern {
      * Find files that match a regular expression from zip-archive
      * @param zipArchive archive in which the search will be executed
      */
-    private void findFilesFromZipArchiveByPattern(File zipArchive) {
+    private void findFilesFromZipArchiveByPattern(@NotNull File zipArchive) {
         try {
             ZipFile zip = new ZipFile(zipArchive.getAbsolutePath());
             Enumeration entries = zip.entries();
@@ -58,12 +59,13 @@ public class UnzipFilesByPattern {
                 Pattern pattern = Pattern.compile(regex);
                 Matcher m = pattern.matcher(getShortName(entry.getName()));
                 if (!entry.isDirectory() && m.matches()) {
-                    write(zip.getInputStream(entry), new BufferedOutputStream(new FileOutputStream(new File(zipArchive.getParent(), getShortName(entry.getName())))));
+                    File file = new File(zipArchive.getParent(), getShortName(entry.getName()));
+                    write(zip.getInputStream(entry), new BufferedOutputStream(new FileOutputStream(file)));
                 }
             }
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Can't open zip-archive");
         }
     }
 
@@ -72,7 +74,7 @@ public class UnzipFilesByPattern {
      * @param in stream from which we will write down
      * @param out stream into which we will write
      */
-    private static void write(InputStream in, OutputStream out) {
+    private static void write(@NotNull InputStream in, @NotNull OutputStream out) {
         byte[] buffer = new byte[1024];
         int len;
         try {
@@ -82,12 +84,12 @@ public class UnzipFilesByPattern {
             in.close();
         }
         catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Can't open InputStream");
         }
     }
 
     /** On the specified path, it searches for all zip files and extracts all the files that will satisfy the regular expression. */
-    public void extractFilesByPattern(String path, String regexExpression) {
+    public void extractFilesByPattern(@NotNull String path, @NotNull String regexExpression) {
        regex = regexExpression;
        findArchives(new File(path));
     }

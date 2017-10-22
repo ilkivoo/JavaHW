@@ -13,8 +13,8 @@ public class UnzipFilesByPatternTest {
     @Test
     public void testExtractFilesByPattern() throws Exception {
         UnzipFilesByPattern dir = new UnzipFilesByPattern();
-        dir.extractFilesByPattern("./test", "^12.*");
-        File file = new File("./test");
+        dir.extractFilesByPattern("./src/test/resources/forTest1", "^12.*");
+        File file = new File("./src/test/resources/forTest1");
         File[] folderEntries = file.listFiles();
         boolean isExistFile1 = false;
         boolean isExistFile2 = false;
@@ -26,9 +26,28 @@ public class UnzipFilesByPatternTest {
                 isExistFile2 = true;
             }
         }
-        new File("./test/12.txt").delete();
-        new File("./test/123.txt").delete();
+        new File("./src/test/resources/forTest1/12.txt").delete();
+        new File("./src/test/resources/forTest1/123.txt").delete();
         assertEquals(true, isExistFile1 && isExistFile2);
+    }
+
+    /** Test ExtractFilesByPattern if dirictory is empty. Check that no files have been added and the directory is still empty */
+    @Test
+    public void testExtractFilesByPatternIfDirictoryIsEmpty() throws Exception {
+        UnzipFilesByPattern dir = new UnzipFilesByPattern();
+        dir.extractFilesByPattern("./src/test/resources/forTest2", "^12.*");
+        File file = new File("./src/test/resources/forTest2");
+        assertEquals(0, file.listFiles().length);
+    }
+
+    /** Test ExtractFilesByPattern if there are no zip-archives in the directory.*/
+    @Test
+    public void testExtractFilesByPatternIfNoZipArchives() throws Exception {
+        UnzipFilesByPattern dir = new UnzipFilesByPattern();
+        File file = new File("./src/test/resources/forTest3");
+        int countFiles = file.listFiles().length;
+        dir.extractFilesByPattern("./src/test/resources/forTest3", "^12.*");
+        assertEquals(countFiles, file.listFiles().length);
     }
 
 }
