@@ -8,8 +8,12 @@ import java.util.Comparator;
 public class Spiral {
     private int[][] matrix;
 
-    /**  Заполняет массив. Для более удобного способа сортирования, транспонируем матрицу*/
-    public Spiral(int[][] array) throws Exception{
+    /**  Заполняет массив. Для более удобного способа сортирования, транспонируем матрицу
+     *  @param array массив, который мы сможем выводить по спирали
+     *  @throws NullPointerException если вместо массива был передан null
+     *  @throws  IllegalArgumentException если длина массива четная
+     */
+    public Spiral(int[][] array) throws NullPointerException, IllegalArgumentException{
         if (array == null) {
             throw new NullPointerException(" Array is empty");
         }
