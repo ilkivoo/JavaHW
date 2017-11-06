@@ -3,8 +3,6 @@ package ru.spbau.mit.alyokhina;
 import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 
@@ -44,10 +42,14 @@ public class SpiralTest {
         Spiral spiral = new Spiral(new int[][]{{9, 8, 7}, {6, 5, 4}, {3, 2, 1}});
         spiral.sort();
         spiral.print();
-        Pattern p = Pattern.compile("7 8 9 \\s4 5 6 \\s1 2 3");
         String testString = baos.toString().trim();
-        Matcher m = p.matcher(testString);
-        assertEquals(true, m.matches());
+        String rightAnswer = "7 8 9  4 5 6  1 2 3";
+        assertEquals(rightAnswer.length(), testString.length());
+        for (int i = 0; i < testString.length(); i++) {
+            if(testString.charAt(i) >= '0' && testString.charAt(i) <= '9') {
+                assertEquals(rightAnswer.charAt(i), testString.charAt(i));
+            }
+        }
     }
 
     @Test
@@ -56,10 +58,14 @@ public class SpiralTest {
         System.setOut(new PrintStream(baos));
         Spiral spiral = new Spiral(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
         spiral.print();
-        Pattern p = Pattern.compile("1 2 3 \\s4 5 6 \\s7 8 9");
         String testString = baos.toString().trim();
-        Matcher m = p.matcher(testString);
-        assertEquals(true, m.matches());
+        String rightAnswer = "1 2 3  4 5 6  7 8 9";
+        assertEquals(rightAnswer.length(), testString.length());
+        for (int i = 0; i < testString.length(); i++) {
+            if(testString.charAt(i) >= '0' && testString.charAt(i) <= '9') {
+                assertEquals(rightAnswer.charAt(i), testString.charAt(i));
+            }
+        }
     }
 
     @Test
@@ -68,10 +74,14 @@ public class SpiralTest {
         System.setOut(new PrintStream(baos));
         Spiral spiral = new Spiral(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
         spiral.printSpiral();
-        Pattern p = Pattern.compile("5\\s4\\s1\\s2\\s3\\s6\\s9\\s8\\s7");
         String testString = baos.toString().trim();
-        Matcher m = p.matcher(testString);
-        assertEquals(true, m.matches());
+        String rightAnswer = "5 4 1 2 3 6 9 8 7";
+        assertEquals(rightAnswer.length(), testString.length());
+        for (int i = 0; i < testString.length(); i++) {
+            if(testString.charAt(i) >= '0' && testString.charAt(i) <= '9') {
+                assertEquals(rightAnswer.charAt(i), testString.charAt(i));
+            }
+        }
     }
 
     @Test
