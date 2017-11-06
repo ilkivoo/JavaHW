@@ -1,13 +1,14 @@
 package ru.spbau.mit.alyokhina;
 
-import com.sun.istack.internal.NotNull;
-
+import org.jetbrains.annotations.NotNull;
 import java.io.*;
 import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+
 /** Unzip files of all archives in the directory by the regular expression*/
 public class UnzipFilesByPattern {
    /** Regular expression on which we want to find files*/
@@ -35,14 +36,15 @@ public class UnzipFilesByPattern {
      * @param path absolute path
      * @return name file
      */
+   @NotNull
    private String getShortName(@NotNull String path) {
-       String shortName = "";
+       StringBuilder shortName = new StringBuilder();
        int i = path.length() - 1;
        while (i >= 0 && path.charAt(i) != '/') {
-           shortName = path.charAt(i) + shortName;
+           shortName.insert(0,path.charAt(i));
            i--;
        }
-       return shortName;
+       return shortName.toString();
    }
 
     /**
@@ -65,7 +67,7 @@ public class UnzipFilesByPattern {
             }
         }
         catch (IOException e) {
-            System.out.println("Can't open zip-archive");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -84,7 +86,7 @@ public class UnzipFilesByPattern {
             in.close();
         }
         catch (IOException e) {
-            System.out.println("Can't open InputStream");
+            System.out.println(e.getMessage());
         }
     }
 
