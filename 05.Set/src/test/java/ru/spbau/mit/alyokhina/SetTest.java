@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 public class SetTest {
 
     @Test
-    public void testAddWithHelpcontains() throws Exception {
+    public void testAddWithHelpContains() throws Exception {
         Set<Integer> set = new Set();
         set.add(1);
         set.add(2);
@@ -25,13 +25,13 @@ public class SetTest {
     }
 
     @Test
-    public void testcontainsEmptySet() throws Exception {
+    public void testContainsEmptySet() throws Exception {
         Set<Integer> set = new Set();
         assertEquals(0, set.size());
     }
 
     @Test
-    public void testcontainsIfAddSameNumber() throws Exception {
+    public void testContainsIfAddSameNumber() throws Exception {
         Set<Integer> set = new Set();
         set.add(1);
         set.add(2);
