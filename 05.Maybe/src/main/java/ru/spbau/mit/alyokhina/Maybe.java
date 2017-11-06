@@ -3,6 +3,10 @@ package ru.spbau.mit.alyokhina;
 import org.jetbrains.annotations.NotNull;
 import java.util.function.Function;
 
+/**
+ * A container from one element, in which there may or may not be a value
+ * @param <T> type of value to be stored
+ */
 public class Maybe<T> {
     /** The value that is stored */
     private T value;
@@ -21,7 +25,7 @@ public class Maybe<T> {
      * @param <T> type of t
      */
     @NotNull
-    public static <T> Maybe<T> just(T t) {
+    public static <T> Maybe<T> just(@NotNull T t) {
         return new Maybe<T>(t);
     }
 
@@ -31,10 +35,10 @@ public class Maybe<T> {
         return new Maybe<T>(null);
     }
 
-    /** returns the stored value, if it is, throws an exception (MaybeException), if there is no value */
-    public T get() throws  MaybeException{
+    /** returns the stored value, if it is, throws an exception (ValueNotPresentException), if there is no value */
+    public T get() throws ValueNotPresentException {
         if (value == null) {
-            throw new MaybeException("value is null");
+            throw new ValueNotPresentException("value is null");
         }
         return value;
     }
@@ -53,7 +57,7 @@ public class Maybe<T> {
      */
     public <U> Maybe<U> map(Function<T, U> mapper) {
         if (value == null) {
-            return new Maybe<U>(null);
+            return nothing();
         }
         else
             return new Maybe<U> (mapper.apply(value));

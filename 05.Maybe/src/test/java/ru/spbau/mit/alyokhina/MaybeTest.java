@@ -18,16 +18,11 @@ public class MaybeTest {
     }
 
 
-    @Test
+    @Test(expected = ValueNotPresentException.class)
     public void testNothingAndGet() throws Exception {
-        try {
-            Maybe<Integer> a = Maybe.nothing();
-            a.get();
-            assertEquals(5, 6);
-        }
-        catch (MaybeException e) {
-            System.out.println("OK");
-        }
+        Maybe<Integer> a = Maybe.nothing();
+        a.get();
+        assertEquals(5, 6);
     }
 
     @Test
@@ -59,5 +54,4 @@ public class MaybeTest {
         Maybe<Integer> a = Maybe.nothing();
         assertEquals(false, a.map(x -> x * 2).isPresent());
     }
-
 }

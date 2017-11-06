@@ -4,6 +4,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class for working with files
+ * Read data from file
+ * Write numbers in square
+ */
 public class ReadAndWriteNumbersInSquare {
 
     /**
@@ -32,7 +37,7 @@ public class ReadAndWriteNumbersInSquare {
      * @param outputFileName name file for write
      * @param data array Maybe
      */
-    public static void write(String outputFileName, ArrayList<Maybe<Integer>> data) throws IOException, MaybeException {
+    public static void write(String outputFileName, ArrayList<Maybe<Integer>> data) throws IOException, ValueNotPresentException {
         PrintWriter printer = new PrintWriter(new FileWriter(new File(outputFileName)));
         for (Maybe<Integer> maybe : data) {
             maybe = maybe.map(x -> x * x);
