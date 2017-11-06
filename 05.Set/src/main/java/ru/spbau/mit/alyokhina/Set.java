@@ -1,14 +1,10 @@
 package ru.spbau.mit.alyokhina;
 
-/**  The structure of the data is stored in a single copy. Implemented using a binary search tree */
-public class Set <T extends Comparable> {
-    /** Class for tree node */
-    private class Node {
-        Node left;
-        T valueInVertex;
-        Node right;
-    }
-
+/**
+ * The structure of the data is stored in a single copy. Implemented using a binary search tree
+ * @param <T> type of elements that are stored in the set
+ */
+public class Set <T extends Comparable<T>> {
     /** Tree root */
     private Node root;
     /** size of set*/
@@ -44,7 +40,10 @@ public class Set <T extends Comparable> {
         }
     }
 
-    /** Add value in set */
+    /**
+     * Add value in set
+     * @param value value to be added to the set
+     */
     public void add (T value) {
         if (root == null) {
             root = new Node();
@@ -62,7 +61,7 @@ public class Set <T extends Comparable> {
      * @param value the presence of an element in the set
      * @return true if this value in set, else false
      */
-    public boolean conteins(T value) {
+    public boolean contains(T value) {
         Node currentVertex = root;
         while (currentVertex != null && currentVertex.valueInVertex!= value) {
             if (currentVertex.valueInVertex.compareTo(value) > 0) {
@@ -80,4 +79,10 @@ public class Set <T extends Comparable> {
         return size;
     }
 
+    /** Class for tree node */
+    private class Node {
+        private Node left;
+        private T valueInVertex;
+        private Node right;
+    }
 }
