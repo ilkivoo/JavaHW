@@ -43,11 +43,12 @@ public class SpiralTest {
         spiral.sort();
         spiral.print();
         String testString = baos.toString().trim();
-        String rightAnswer = "7 8 9  4 5 6  1 2 3";
-        assertEquals(rightAnswer.length(), testString.length());
+        char[] rightAnswer = new char[] {'7', '8', '9', '4', '5', '6', '1', '2', '3'};
+        int k = 0;
         for (int i = 0; i < testString.length(); i++) {
-            if(testString.charAt(i) >= '0' && testString.charAt(i) <= '9') {
-                assertEquals(rightAnswer.charAt(i), testString.charAt(i));
+            if (testString.charAt(i) >= '0' && testString.charAt(i) <= '9') {
+                assertEquals(rightAnswer[k], testString.charAt(i));
+                k++;
             }
         }
     }
@@ -75,11 +76,12 @@ public class SpiralTest {
         Spiral spiral = new Spiral(new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
         spiral.printSpiral();
         String testString = baos.toString().trim();
-        String rightAnswer = "5 4 1 2 3 6 9 8 7";
-        assertEquals(rightAnswer.length(), testString.length());
+        char[] rightAnswer = new char[] {'5', '4', '1', '2', '3', '6', '9', '8', '7'};
+        int k  = 0;
         for (int i = 0; i < testString.length(); i++) {
-            if(testString.charAt(i) >= '0' && testString.charAt(i) <= '9') {
-                assertEquals(rightAnswer.charAt(i), testString.charAt(i));
+            if (testString.charAt(i) >= '0' && testString.charAt(i) <= '9') {
+                assertEquals(rightAnswer[k], testString.charAt(i));
+                k++;
             }
         }
     }
