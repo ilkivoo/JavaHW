@@ -35,7 +35,10 @@ public class Maybe<T> {
         return new Maybe<T>(null);
     }
 
-    /** returns the stored value, if it is, throws an exception (ValueNotPresentException), if there is no value */
+    /**
+     * @return stored value
+     * @throws ValueNotPresentException  if the value is not stored
+     */
     public T get() throws ValueNotPresentException {
         if (value == null) {
             throw new ValueNotPresentException("value is null");
@@ -57,7 +60,7 @@ public class Maybe<T> {
      */
     public <U> Maybe<U> map(Function<T, U> mapper) {
         if (value == null) {
-            return nothing();
+            return (Maybe<U>)this;
         }
         else
             return new Maybe<U> (mapper.apply(value));

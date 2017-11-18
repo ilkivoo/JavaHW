@@ -15,6 +15,8 @@ public class ReadAndWriteNumbersInSquare {
      * Read the numbers from the file: if there is a number in the string, "Maybe" is returned with a number,
      * if the number is not written in the line, "Maybe" is returned with null.
      * @param inputFileName name file for read
+     * @return ArrayList<Maybe<Integer>> if the string is a number, then Maybe with this number, else, Maybe with null
+     * @throws FileNotFoundException if file with this name doesn't exist
      */
 
     public static ArrayList<Maybe<Integer>> read(String inputFileName) throws FileNotFoundException {
