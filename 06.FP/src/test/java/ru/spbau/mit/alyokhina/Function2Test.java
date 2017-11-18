@@ -8,7 +8,7 @@ public class Function2Test {
     @Test
     public void testApply() {
         Function2<Integer, Integer, Integer> f = (a, b) -> a * b;
-        assertEquals(Integer.valueOf(6), f.apply(2,3));
+        assertEquals(Integer.valueOf(6), f.apply(2, 3));
     }
 
     @Test

@@ -6,13 +6,16 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-/** Class for work with iterable collections */
+/**
+ * Class for work with iterable collections
+ */
 public class Collections {
     /**
      * Takes function from one variable and iterable collection, applies function to each element a_i and returns a list of [f (a_1), ..., f (a_n)]
-     * @param func function to be applied
-     * @param data elements to which will be applied
-     * @param <TypeArgument> element type in data
+     *
+     * @param func              function to be applied
+     * @param data              elements to which will be applied
+     * @param <TypeArgument>    element type in data
      * @param <TypeReturnValue> return type
      * @return List new element ( new element = applied function to the old element)
      */
@@ -28,8 +31,9 @@ public class Collections {
 
     /**
      * Takes predicate and iterable collection, returns a list containing the elements a_i on which p (a_i) == true
-     * @param predicate predicate to be applied
-     * @param data elements to which will be applied
+     *
+     * @param predicate      predicate to be applied
+     * @param data           elements to which will be applied
      * @param <TypeArgument> element type in data
      * @return list of elements on which the predicate is true
      */
@@ -47,8 +51,9 @@ public class Collections {
 
     /**
      * Takes predicate and iterable collection, returns a list with the beginning up to the first element ai, for which p (ai) == false
-     * @param predicate predicate to be applied
-     * @param data elements to which will be applied
+     *
+     * @param predicate      predicate to be applied
+     * @param data           elements to which will be applied
      * @param <TypeArgument> element type in data
      * @return list with the beginning up to the first element ai, for which p (ai) == false
      */
@@ -66,8 +71,9 @@ public class Collections {
 
     /**
      * Takes predicate and iterable collection, returns a list with the beginning up to the first element ai, for which p (ai) == true
-     * @param predicate predicate to be applied
-     * @param data elements to which will be applied
+     *
+     * @param predicate      predicate to be applied
+     * @param data           elements to which will be applied
      * @param <TypeArgument> element type in data
      * @return list with the beginning up to the first element ai, for which p (ai) == true
      */
@@ -78,15 +84,16 @@ public class Collections {
 
     /**
      * Function which converts the data structure to a single atomic value using a given function starting with the first element
-     * @param func function to be applied
-     * @param mempty neutral element
-     * @param data elements to which will be applied
-     * @param <TypeArgument> element type in data
+     *
+     * @param func              function to be applied
+     * @param mempty            neutral element
+     * @param data              elements to which will be applied
+     * @param <TypeArgument>    element type in data
      * @param <TypeReturnValue> return type
      * @return the value of the function applied to the elements in turn
      */
     @NotNull
-    public static <TypeArgument, TypeReturnValue> TypeReturnValue foldl(@NotNull Function2 <? super TypeReturnValue, ? super TypeArgument, ? extends TypeReturnValue> func,
+    public static <TypeArgument, TypeReturnValue> TypeReturnValue foldl(@NotNull Function2<? super TypeReturnValue, ? super TypeArgument, ? extends TypeReturnValue> func,
                                                                         TypeReturnValue mempty, @NotNull Iterable<TypeArgument> data) {
         TypeReturnValue answer = mempty;
         for (TypeArgument element : data) {
@@ -98,11 +105,12 @@ public class Collections {
 
     /**
      * Function which converts the data structure to a single atomic value using a given function starting with the last element
-     * @param func function to be applied
-     * @param mempty neutral element
+     *
+     * @param func                   function to be applied
+     * @param mempty                 neutral element
      * @param iteratorCurrentElement iterator on the current element
-     * @param <TypeArgument> element type in data
-     * @param <TypeReturnValue> return type
+     * @param <TypeArgument>         element type in data
+     * @param <TypeReturnValue>      return type
      * @return the value of the function applied to the elements in turn
      */
     @NotNull
@@ -117,16 +125,17 @@ public class Collections {
 
     /**
      * Function which converts the data structure to a single atomic value using a given function starting with the last element
-     * @param func function to be applied
-     * @param mempty neutral element
-     * @param data elements to which will be applied
-     * @param <TypeArgument> element type in data
+     *
+     * @param func              function to be applied
+     * @param mempty            neutral element
+     * @param data              elements to which will be applied
+     * @param <TypeArgument>    element type in data
      * @param <TypeReturnValue> return type
      * @return the value of the function applied to the elements in turn
      */
     @NotNull
     public static <TypeArgument, TypeReturnValue> TypeReturnValue foldr(@NotNull Function2<? super TypeArgument, ? super TypeReturnValue, ? extends TypeReturnValue> func,
-                                                             TypeReturnValue mempty, @NotNull Iterable<TypeArgument> data) {
+                                                                        TypeReturnValue mempty, @NotNull Iterable<TypeArgument> data) {
         return foldr(func, mempty, data.iterator());
     }
 }

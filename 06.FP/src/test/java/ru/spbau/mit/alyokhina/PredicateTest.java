@@ -31,7 +31,7 @@ public class PredicateTest {
     }
 
     @Test
-    public void testAlwaysFalse(){
+    public void testAlwaysFalse() {
         assertEquals(false, Predicate.alwaysFalse().apply(6));
     }
 

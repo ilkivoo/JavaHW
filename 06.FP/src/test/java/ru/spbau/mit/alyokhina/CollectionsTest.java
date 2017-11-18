@@ -41,7 +41,8 @@ public class CollectionsTest {
     }
 
     @Test
-    public void tstTakeUnless() {List<Integer> data = Arrays.asList(5, 4, 3, 2, 1);
+    public void tstTakeUnless() {
+        List<Integer> data = Arrays.asList(5, 4, 3, 2, 1);
         List<Integer> answer = Collections.takeUnless(x -> x <= 3, data);
         Integer right = 2;
         for (Integer element : answer) {
@@ -53,7 +54,7 @@ public class CollectionsTest {
     @Test
     public void testFoldl() {
         List<Integer> data = Arrays.asList(1, 2, 3, 4, 5);
-        assertEquals(Integer.valueOf(57), Collections.foldl((a, b) ->2 * a + b, 0, data));
+        assertEquals(Integer.valueOf(57), Collections.foldl((a, b) -> 2 * a + b, 0, data));
     }
 
     @Test
