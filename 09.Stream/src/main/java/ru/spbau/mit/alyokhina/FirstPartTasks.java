@@ -22,12 +22,19 @@ public final class FirstPartTasks {
 
     // Список треков, отсортированный лексикографически по названию, включающий все треки альбомов из 'albums'
     public static List<String> allTracksSorted(Stream<Album> albums) {
-        return albums.flatMap(album -> album.getTracks().stream().map(Track::getName)).sorted().collect(Collectors.toList());
+        return albums.flatMap(album -> album.getTracks().stream()
+        	.map(Track::getName))
+        	.sorted()
+        	.collect(Collectors.toList());
     }
 
     // Список альбомов, в которых есть хотя бы один трек с рейтингом более 95, отсортированный по названию
     public static List<Album> sortedFavorites(Stream<Album> s) {
-        return s.filter(album -> album.getTracks().stream().map(Track::getRating).anyMatch(rating -> rating > 95)).sorted(Comparator.comparing(Album::getName)).collect(Collectors.toList());
+        return s.filter(album -> album.getTracks().stream()
+        	.map(Track::getRating)
+        	.anyMatch(rating -> rating > 95))
+        	.sorted(Comparator.comparing(Album::getName))
+        	.collect(Collectors.toList());
     }
 
     // Сгруппировать альбомы по артистам
@@ -42,7 +49,11 @@ public final class FirstPartTasks {
 
     // Число повторяющихся альбомов в потоке
     public static long countAlbumDuplicates(Stream<Album> albums) {
-        return albums.collect(Collectors.toMap(Function.identity(), a -> 1, (a, b) -> a + b)).values().stream().filter(a -> a > 1).count();
+        return albums.collect(Collectors.toMap(Function.identity(), a -> 1, (a, b) -> a + b))
+        	.values()
+        	.stream()
+        	.filter(a -> a > 1)
+        	.count();
     }
 
     // Альбом, в котором максимум рейтинга минимален
