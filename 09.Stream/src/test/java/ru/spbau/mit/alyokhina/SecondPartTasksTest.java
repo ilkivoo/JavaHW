@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class SecondPartTasksTest {
     /**
-     * Creates new files. Records information in them. Calls FindQuotes. When finished, deletes these files
+     * File for test store in src/main/resources. Calls FindQuotes
      */
     @Test
     public void testFindQuotes() {
